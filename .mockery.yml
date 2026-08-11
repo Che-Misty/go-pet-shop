@@ -1,6 +1,6 @@
 all: false
 dir: '{{.InterfaceDir}}'
-filename: mocks_test.go
+filename: '{{.InterfaceName}}Mock.go'
 force-file-write: true
 formatter: goimports
 formatter-options:
@@ -15,13 +15,13 @@ formatter-options:
 generate: true
 include-auto-generated: false
 log-level: info
-structname: '{{.Mock}}{{.InterfaceName}}'
+structname: '{{.InterfaceName}}Mock'
 pkgname: '{{.SrcPackageName}}'
 recursive: false
 require-template-schema-exists: true
 template: testify
 template-schema: '{{.Template}}.schema.json'
 packages:
-  go-pet-shop:
+  go-pet-shop/internal/handlers/product:
     config:
       all: true

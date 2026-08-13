@@ -1,3 +1,5 @@
+version: "2"
+
 linters:
   enable:
     - unused
@@ -7,12 +9,16 @@ linters:
     - errcheck
     - ineffassign
     - gocyclo
+    
+
+formatters:
+  enable:
+    - gofmt
 
 run:
   timeout: 2m
   tests: true
 
 issues:
-  exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0

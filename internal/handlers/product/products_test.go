@@ -5,12 +5,12 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/go-chi/chi"
 	"go-pet-shop/internal/models"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"github.com/go-chi/chi"
 )
 
 // Get Product - Ready
@@ -179,11 +179,11 @@ func TestUpdateProduct_Success(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodPut, "/products/4", bytes.NewReader(jsonData))
-	
+
 	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","4")
+	rctx.URLParams.Add("id", "4")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)
@@ -215,11 +215,11 @@ func TestUpdateProduct_BadRequest(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodPut, "/products/4", bytes.NewReader(jsonData))
-	
+
 	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","4")
+	rctx.URLParams.Add("id", "4")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)
@@ -251,11 +251,11 @@ func TestUpdateProduct_Fail(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodPut, "/products/4", bytes.NewReader(jsonData))
-	
-    rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","4")
+
+	rctx := chi.NewRouteContext()
+	rctx.URLParams.Add("id", "4")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)
@@ -279,11 +279,11 @@ func TestDeleteProduct_Success(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodDelete, "/products/4", nil)
-	
+
 	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","4")
+	rctx.URLParams.Add("id", "4")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)
@@ -304,11 +304,11 @@ func TestDeleteProduct_BadRequest(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodDelete, "/products", nil)
-	
+
 	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","")
+	rctx.URLParams.Add("id", "")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)
@@ -329,11 +329,11 @@ func TestDeleteProduct_Fail(t *testing.T) {
 	}
 
 	req := httptest.NewRequest(http.MethodDelete, "/products/4", nil)
-	
+
 	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("id","4")
+	rctx.URLParams.Add("id", "4")
 	req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
-	
+
 	w := httptest.NewRecorder()
 
 	handler := New(slog.Default(), mock)

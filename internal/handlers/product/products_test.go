@@ -5,12 +5,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/go-chi/chi"
 	"go-pet-shop/internal/models"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/go-chi/chi"
 )
 
 // Get Product - Ready
@@ -97,17 +98,12 @@ func TestCreateProduct_Success(t *testing.T) {
 
 func TestCreateProduct_BadRequest(t *testing.T) {
 	// TODO: Написать Unit-тест для создания продукта с невалидным JSON (400 Bad Request)
-	newProduct := models.Product{
-		ID:    3,
-		Name:  "Dog's Toy",
-		Price: -2.5,
-		Stock: 123,
-	}
-
-	jsonData, err := json.Marshal(newProduct)
-	if err != nil {
-		t.Fatal(err)
-	}
+	jsonData := []byte(`{
+		id: 3,
+		"name": "Dogs",
+		"price": 2.5,
+		"stock": 123
+	`)
 
 	mock := &ProductsMock{
 		CreateProductFunc: func(ctx context.Context, product models.Product) (int, error) {
@@ -196,17 +192,12 @@ func TestUpdateProduct_Success(t *testing.T) {
 
 func TestUpdateProduct_BadRequest(t *testing.T) {
 	// TODO: Написать Unit-тест для обновления продукта с невалидным JSON (400 Bad Request)
-	updateProduct := models.Product{
-		ID:    4,
-		Name:  "Rat's Food",
-		Price: 32.1,
-		Stock: -200,
-	}
-
-	jsonData, err := json.Marshal(updateProduct)
-	if err != nil {
-		t.Fatal(err)
-	}
+	jsonData := []byte(`{
+		"id": 4,
+		"name": "Rat's Food",
+		price: 32.1,
+		stock: 200
+	`)
 
 	mock := &ProductsMock{
 		UpdateProductFunc: func(ctx context.Context, product models.Product) error {

@@ -103,11 +103,11 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	if product.Stock < 0 {
 		log.Error("product stock is negative", slog.Int("stock", product.Stock))
+		w.WriteHeader(http.StatusBadRequest)
 		render.JSON(w, r, map[string]string{
 			"error":   "Bad request",
 			"message": "Product stock cannot be negative",
 		})
-		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
